@@ -311,34 +311,36 @@ window.onload = function() {
     }
 
     function updateResponsive() {
-        // Update canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight + 65;
+        // Only update the sizes if the width of the device has changed
+        if (canvas.width != window.innerWidth) {
+            // Update canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight + 65;
 
-        var responsiveSizer = 0;
+            var responsiveSizer = 0;
 
-        if (canvas.width < canvas.height - 133) {
-            responsiveSizer = canvas.width - 8;
-        }
-        else {
-            responsiveSizer = canvas.height - 133;
-        }
+            if (canvas.width < canvas.height - 133) {
+                responsiveSizer = canvas.width - 8;
+            }
+            else {
+                responsiveSizer = canvas.height - 133;
+            }
 
-        // Update tile size
-        for (var i=0; i<level.columns; i++) {
-            for (var j = 0; j < level.rows; j++) {
-                level.tilewidth = responsiveSizer / level.columns;
-                level.tileheight = responsiveSizer / level.columns;
-                if (responsiveSizer < canvas.width) {
-                    level.x = canvas.width / 2 - ((level.tilewidth * level.columns) / 2);
+            // Update tile size
+            for (var i = 0; i < level.columns; i++) {
+                for (var j = 0; j < level.rows; j++) {
+                    level.tilewidth = responsiveSizer / level.columns;
+                    level.tileheight = responsiveSizer / level.columns;
+                    if (responsiveSizer < canvas.width) {
+                        level.x = canvas.width / 2 - ((level.tilewidth * level.columns) / 2);
+                    }
+                    else {
+                        level.x = 4;
+                    }
+                    level.y = 65;
                 }
-                else {
-                    level.x = 4;
-                }
-                level.y = 65;
             }
         }
-
     }
     
     // Draw a frame with a border
