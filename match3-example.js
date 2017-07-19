@@ -37,8 +37,8 @@ window.onload = function() {
     var level = {
         x: 250,         // X position
         y: 113,         // Y position
-        columns: 8,     // Number of tile columns
-        rows: 8,        // Number of tile rows
+        columns: 5,     // Number of tile columns
+        rows: 5,        // Number of tile rows
         tilewidth: 40,  // Visual width of a tile
         tileheight: 40, // Visual height of a tile
         tiles: [],      // The two-dimensional tile array
@@ -313,24 +313,29 @@ window.onload = function() {
     function updateResponsive() {
         // Update canvas size
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.height = window.innerHeight + 65;
 
         var responsiveSizer = 0;
 
-        if (canvas.width < canvas.height) {
-            responsiveSizer = canvas.width;
+        if (canvas.width < canvas.height - 133) {
+            responsiveSizer = canvas.width - 8;
         }
         else {
-            responsiveSizer = canvas.height;
+            responsiveSizer = canvas.height - 133;
         }
 
         // Update tile size
         for (var i=0; i<level.columns; i++) {
             for (var j = 0; j < level.rows; j++) {
-                level.x = 0; //canvas.width / 2;
-                level.y = 0; //canvas.height / 2;
                 level.tilewidth = responsiveSizer / level.columns;
                 level.tileheight = responsiveSizer / level.columns;
+                if (responsiveSizer < canvas.width) {
+                    level.x = canvas.width / 2 - ((level.tilewidth * level.columns) / 2);
+                }
+                else {
+                    level.x = 4;
+                }
+                level.y = 65;
             }
         }
 
@@ -346,13 +351,13 @@ window.onload = function() {
         
         // Draw header
         context.fillStyle = "#303030";
-        context.fillRect(0, 0, canvas.width, 65);
+        context.fillRect(0, 0, canvas.width, 61);
         
         // Draw title
         context.fillStyle = "#ffffff";
         context.font = "24px Verdana";
         context.textAlign = "center";
-        context.fillText("faceMatch by pfefferi", canvas.width / 2, 30);
+        context.fillText("faceMatch by pfefferi", canvas.width / 2, 40);
         
         // Display fps
         context.fillStyle = "#ffffff";
