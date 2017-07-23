@@ -86,9 +86,14 @@ window.onload = function() {
     var buttons = [ { x: 30, y: 240, width: 150, height: 50, text: "New Game"},
                     { x: 30, y: 300, width: 150, height: 50, text: "Show Moves"},
                     { x: 30, y: 360, width: 150, height: 50, text: "Enable AI Bot"}];
+
+    var initialized = false;
     
     // Initialize the game
     function init() {
+        // Preload image files
+        images = loadImages(["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]);
+
         // Add mouse events
         canvas.addEventListener("mousemove", onMouseMove);
         canvas.addEventListener("mousedown", onMouseDown);
@@ -115,10 +120,40 @@ window.onload = function() {
     function main(tframe) {
         // Request animation frames
         window.requestAnimationFrame(main);
-        
-        // Update and render the game
-        update(tframe);
-        render();
+
+
+        if (!initialized) {
+            // Preloader
+
+            // Clear the canvas
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the frame
+            drawFrame();
+
+            // Draw a progress bar
+            var loadpercentage = loadcount/loadtotal;
+            context.strokeStyle = "#ff8080";
+            context.lineWidth=3;
+            context.strokeRect(18.5, 0.5 + canvas.height - 51, canvas.width-37, 32);
+            context.fillStyle = "#ff8080";
+            context.fillRect(18.5, 0.5 + canvas.height - 51, loadpercentage*(canvas.width-37), 32);
+
+            // Draw the progress text
+            var loadtext = "Loaded " + loadcount + "/" + loadtotal + " images";
+            context.fillStyle = "#000000";
+            context.font = "16px Verdana";
+            context.fillText(loadtext, 18, 0.5 + canvas.height - 63);
+
+            if (preloaded) {
+                // Add a delay for demonstration purposes
+                setTimeout(function(){initialized = true;}, 1000);
+            }
+        } else {
+            // Update and render the game
+            update(tframe);
+            render();
+        }
     }
     
     // Update the game state
@@ -396,16 +431,18 @@ window.onload = function() {
                 if (level.tiles[i][j].type >= 0) {
                     // Get the color of the tile
                     var col = tilecolors[level.tiles[i][j].type];
+                    var image = images[level.tiles[i][j].type];
                     
                     // Draw the tile using the color
-                    drawTile(coord.tilex, coord.tiley, col[0], col[1], col[2]);
+                    //drawTile(coord.tilex, coord.tiley, col[0], col[1], col[2]);
+                    drawTileImage(coord.tilex, coord.tiley, image);
                 }
                 
                 // Draw the selected tile
                 if (level.selectedtile.selected) {
                     if (level.selectedtile.column == i && level.selectedtile.row == j) {
-                        // Draw a red tile
-                        drawTile(coord.tilex, coord.tiley, 255, 0, 0);
+                        // Draw a blue tile
+                        drawTile(coord.tilex, coord.tiley, 0, 0, 255, 0.25);
                     }
                 }
             }
@@ -421,11 +458,13 @@ window.onload = function() {
             var coord1 = getTileCoordinate(currentmove.column1, currentmove.row1, 0, 0);
             var coord1shift = getTileCoordinate(currentmove.column1, currentmove.row1, (animationtime / animationtimetotal) * shiftx, (animationtime / animationtimetotal) * shifty);
             var col1 = tilecolors[level.tiles[currentmove.column1][currentmove.row1].type];
+            var image1 = images[level.tiles[currentmove.column1][currentmove.row1].type];
             
             // Second tile
             var coord2 = getTileCoordinate(currentmove.column2, currentmove.row2, 0, 0);
             var coord2shift = getTileCoordinate(currentmove.column2, currentmove.row2, (animationtime / animationtimetotal) * -shiftx, (animationtime / animationtimetotal) * -shifty);
             var col2 = tilecolors[level.tiles[currentmove.column2][currentmove.row2].type];
+            var image2 = images[level.tiles[currentmove.column2][currentmove.row2].type];
             
             // Draw a black background
             drawTile(coord1.tilex, coord1.tiley, 0, 0, 0);
@@ -434,12 +473,12 @@ window.onload = function() {
             // Change the order, depending on the animation state
             if (animationstate == 2) {
                 // Draw the tiles
-                drawTile(coord1shift.tilex, coord1shift.tiley, col1[0], col1[1], col1[2]);
-                drawTile(coord2shift.tilex, coord2shift.tiley, col2[0], col2[1], col2[2]);
+                drawTileImage(coord1shift.tilex, coord1shift.tiley, image1);
+                drawTileImage(coord2shift.tilex, coord2shift.tiley, image2);
             } else {
                 // Draw the tiles
-                drawTile(coord2shift.tilex, coord2shift.tiley, col2[0], col2[1], col2[2]);
-                drawTile(coord1shift.tilex, coord1shift.tiley, col1[0], col1[1], col1[2]);
+                drawTileImage(coord2shift.tilex, coord2shift.tiley, image2);
+                drawTileImage(coord1shift.tilex, coord1shift.tiley, image1);
             }
         }
     }
@@ -452,9 +491,14 @@ window.onload = function() {
     }
     
     // Draw a tile with a color
-    function drawTile(x, y, r, g, b) {
-        context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+    function drawTile(x, y, r, g, b, a) {
+        context.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
         context.fillRect(x + 2, y + 2, level.tilewidth - 4, level.tileheight - 4);
+    }
+
+    // Draw a tile with an image
+    function drawTileImage(x, y, image) {
+        context.drawImage(image, x + 2, y + 2, level.tilewidth - 4, level.tileheight - 4);
     }
     
     // Render clusters
@@ -520,7 +564,9 @@ window.onload = function() {
             // Create a level with random tiles
             for (var i=0; i<level.columns; i++) {
                 for (var j=0; j<level.rows; j++) {
-                    level.tiles[i][j].type = getRandomTile();
+                    var typeIndex = getRandomTile()
+                    level.tiles[i][j].type = typeIndex;
+                    level.tiles[i][j].typeIndex = typeIndex;
                 }
             }
             
@@ -899,6 +945,44 @@ window.onload = function() {
             x: Math.round((e.clientX - rect.left)/(rect.right - rect.left)*canvas.width),
             y: Math.round((e.clientY - rect.top)/(rect.bottom - rect.top)*canvas.height)
         };
+    }
+
+    // Image loading global variables
+    var loadcount = 0;
+    var loadtotal = 0;
+    var preloaded = false;
+
+// Load images
+    function loadImages(imagefiles) {
+        // Initialize variables
+        loadcount = 0;
+        loadtotal = imagefiles.length;
+        preloaded = false;
+
+        // Load the images
+        var loadedimages = [];
+        for (var i=0; i<imagefiles.length; i++) {
+            // Create the image object
+            var image = new Image();
+
+            // Add onload event handler
+            image.onload = function () {
+                loadcount++;
+                if (loadcount == loadtotal) {
+                    // Done loading
+                    preloaded = true;
+                }
+            };
+
+            // Set the source url of the image
+            image.src = "assets/" + imagefiles[i];
+
+            // Save to the image array
+            loadedimages[i] = image;
+        }
+
+        // Return an array of images
+        return loadedimages;
     }
     
     // Call init to start the game
