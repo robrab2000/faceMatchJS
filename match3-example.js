@@ -347,7 +347,7 @@ window.onload = function() {
 
     function updateResponsive() {
         // Only update the sizes if the width of the device has changed
-        if (canvas.width != window.innerWidth) {
+        //if (canvas.width != window.innerWidth) {
             // Update canvas size
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight + 65;
@@ -375,7 +375,7 @@ window.onload = function() {
                     level.y = 65;
                 }
             }
-        }
+        //}
     }
     
     // Draw a frame with a border
@@ -416,6 +416,8 @@ window.onload = function() {
             context.fillText(buttons[i].text, buttons[i].x + (buttons[i].width-textdim.width)/2, buttons[i].y+30);
         }
     }
+
+    var sinIterator = 0;
     
     // Render tiles
     function renderTiles() {
@@ -442,7 +444,7 @@ window.onload = function() {
                 if (level.selectedtile.selected) {
                     if (level.selectedtile.column == i && level.selectedtile.row == j) {
                         // Draw a blue tile
-                        drawTile(coord.tilex, coord.tiley, 0, 0, 255, 0.25);
+                        drawTile(coord.tilex, coord.tiley, 0, 0, 255, 0.2);//Math.sin(Time.delta));
                     }
                 }
             }
