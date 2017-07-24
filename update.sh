@@ -10,6 +10,6 @@ if [[ $1 == "-p" ]]; then
     git push origin master
 fi
 
-# ssh -t rob@vps437326.ovh.net "cd /var/www/html/faceMatchJS; sudo git pull; exit"
+ssh -t rob@vps437326.ovh.net "cd /var/www/html/faceMatchJS; sudo git pull; exit"
 
 echo "done!"
