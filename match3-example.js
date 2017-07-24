@@ -392,12 +392,12 @@ window.onload = function() {
     function drawFrame() {
         // Draw background and a border
         context.fillStyle = "#d0d0d0";
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillRect(61, 0, canvas.width, canvas.height -61);
         context.fillStyle = "#e8eaec";
         context.fillRect(1, 1, canvas.width-2, canvas.height-2);
         
         // Draw header
-        context.fillStyle = "#303030";
+        context.fillStyle = "#2b2b2b";
         context.fillRect(0, 0, canvas.width, 61);
         
         // Draw title
