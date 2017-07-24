@@ -64,6 +64,7 @@ window.onload = function() {
     // Game states
     var gamestates = { init: 0, ready: 1, resolve: 2 };
     var gamestate = gamestates.init;
+    var drawready = true;
     
     // Score
     var score = 0;
@@ -152,7 +153,10 @@ window.onload = function() {
         } else {
             // Update and render the game
             update(tframe);
-            render();
+            if ( gamestate != gamestates.ready || drawready || level.selectedtile.selected || canvas.width != window.innerWidth ) {
+                render();
+                drawready = false;
+            }
         }
     }
     
@@ -218,6 +222,8 @@ window.onload = function() {
                     } else {
                         // No clusters found, animation complete
                         gamestate = gamestates.ready;
+                        // Ready to draw the static
+                        drawready = true;
                     }
                     animationtime = 0;
                 }
@@ -236,6 +242,8 @@ window.onload = function() {
                     if (clusters.length <= 0) {
                         // Animation complete
                         gamestate = gamestates.ready;
+                        // Ready to draw the static
+                        drawready = true;
                     }
                 }
             } else if (animationstate == 2) {
@@ -270,6 +278,8 @@ window.onload = function() {
                     
                     // Animation complete
                     gamestate = gamestates.ready;
+                    // Ready to draw the static
+                    drawready = true;
                 }
             }
             
@@ -443,7 +453,7 @@ window.onload = function() {
                 // Draw the selected tile
                 if (level.selectedtile.selected) {
                     if (level.selectedtile.column == i && level.selectedtile.row == j) {
-                        // Draw a blue tile
+                        // Draw a glowing selected tile
                         drawTile(coord.tilex, coord.tiley, 0, 0, 0, (Math.abs(Math.sin(sinIterator)) * 0.35));
                         sinIterator += 0.05;
                     }
@@ -886,6 +896,8 @@ window.onload = function() {
                         // Same tile selected, deselect
                         level.selectedtile.selected = false;
                         drag = true;
+                        // Ready to draw the static
+                        drawready = true;
                         return;
                     } else if (canSwap(mt.x, mt.y, level.selectedtile.column, level.selectedtile.row)){
                         // Tiles can be swapped, swap the tiles
