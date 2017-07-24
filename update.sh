@@ -1,8 +1,7 @@
 #!/bin/bash
 
 if [[ $1 == "-p" ]]; then
-    git add .
-    if [ -n "$2" ]; then
+   if [ -n "$2" ]; then
         git commit -m "$2"
     else
         git commit -m 'auto commit to push to the server'
