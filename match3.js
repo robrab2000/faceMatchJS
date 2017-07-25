@@ -313,7 +313,7 @@ window.onload = function() {
             findClusters();
         }
     }
-    
+     
     function updateFps(dt) {
         if (fpstime > 0.25) {
             // Calculate fps
@@ -528,7 +528,7 @@ window.onload = function() {
             }
         }
     }
-    
+
     // Get the tile coordinate
     function getTileCoordinate(column, row, columnoffset, rowoffset) {
         var tilex = level.x + (column + columnoffset) * level.tilewidth;
