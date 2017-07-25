@@ -528,7 +528,7 @@ window.onload = function() {
             }
         }
     }
-     
+
     // Get the tile coordinate
     function getTileCoordinate(column, row, columnoffset, rowoffset) {
         var tilex = level.x + (column + columnoffset) * level.tilewidth;
