@@ -96,6 +96,11 @@ window.onload = function() {
 
     // Sin iterator for glow
     var sinIterator = 0;
+
+    // Image loading global variables
+    var loadcount = 0;
+    var loadtotal = 0;
+    var preloaded = false;
     
     // Initialize the game
     function init() {
@@ -162,7 +167,7 @@ window.onload = function() {
     function loadingWindow() {
         // Draw a progress bar
         var loadpercentage = loadcount/loadtotal;
-        context.strokeStyle = "#ff8080";
+        context.strokeStyle = "#000";
         context.lineWidth=3;
         context.strokeRect(canvas.width/2 - (canvas.width/4), canvas.height/2, canvas.width/2, 32);
         context.fillStyle = "#ff8080";
@@ -992,12 +997,7 @@ window.onload = function() {
         };
     }
 
-    // Image loading global variables
-    var loadcount = 0;
-    var loadtotal = 0;
-    var preloaded = false;
-
-// Load images
+    // Load images
     function loadImages(imagefiles) {
         // Initialize variables
         loadcount = 0;
