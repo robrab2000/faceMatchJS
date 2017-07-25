@@ -114,7 +114,8 @@ window.onload = function() {
 
         canvas.addEventListener("mouseout", onMouseOut);
 
-
+        // Connect the social accounts
+        connectSocial();
 
         // Initialize the two-dimensional tile array
         for (var i=0; i<level.columns; i++) {
@@ -313,7 +314,7 @@ window.onload = function() {
             findClusters();
         }
     }
-     
+
     function updateFps(dt) {
         if (fpstime > 0.25) {
             // Calculate fps
@@ -1028,6 +1029,10 @@ window.onload = function() {
 
         // Return an array of images
         return loadedimages;
+    }
+
+    function connectSocial() {
+        connectFacebook();
     }
     
     // Call init to start the game

@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>faceMatch by pfefferi</title>
-    <script src="social.js" type="text/javascript"></script>
-    <script src='match3.js' type='text/javascript'></script>
-</head>
-
-<body style="margin: 0px;">
-
-<script>
+function connectFacebook() {
+    console.log("Connecting to facebook");
     window.fbAsyncInit = function() {
         FB.init({
             appId      : '1939526939623118',
@@ -26,9 +16,15 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-</script>
 
-<canvas id="viewport"></canvas></div>
-</body>
 
-</html> 
+    console.log("Logging In");
+    /*FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            console.log('Logged in.');
+        }
+        else {
+            FB.login();
+        }
+    });*/
+}
