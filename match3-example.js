@@ -20,6 +20,10 @@
 
 // The function gets called when the window is fully loaded
 window.onload = function() {
+    // Release version
+    var releaseVersion = 0;
+    var workingVersion = 0;
+
     // Get the canvas and context
     var canvas = document.getElementById("viewport");
     var context = canvas.getContext("2d");
@@ -99,8 +103,11 @@ window.onload = function() {
         canvas.addEventListener("mousemove", onMouseMove);
         canvas.addEventListener("mousedown", onMouseDown);
         canvas.addEventListener("mouseup", onMouseUp);
+
         canvas.addEventListener("mouseout", onMouseOut);
-        
+
+
+
         // Initialize the two-dimensional tile array
         for (var i=0; i<level.columns; i++) {
             level.tiles[i] = [];
@@ -109,6 +116,9 @@ window.onload = function() {
                 level.tiles[i][j] = { type: 0, shift:0 }
             }
         }
+
+        // Get the version of the game
+        getVersion();
         
         // New game
         newGame();
@@ -167,7 +177,7 @@ window.onload = function() {
         lastframe = tframe;
         
         // Update the fps counter
-        updateFps(dt);
+        //updateFps(dt);
         
         if (gamestate == gamestates.ready) {
             // Game is ready for player input
@@ -325,7 +335,7 @@ window.onload = function() {
         drawCenterText(score, 30, level.y+70, 150);
         
         // Draw buttons
-        drawButtons();
+        //drawButtons();
         
         // Draw level background
         var levelwidth = level.columns * level.tilewidth;
@@ -404,12 +414,26 @@ window.onload = function() {
         context.fillStyle = "#ffffff";
         context.font = "24px Verdana";
         context.textAlign = "center";
-        context.fillText("faceMatch by pfefferi", canvas.width / 2, 40);
+        context.fillText("faceMatch by pfefferi v" + releaseVersion + "." + workingVersion, canvas.width / 2, 40);
         
         // Display fps
         context.fillStyle = "#ffffff";
         context.font = "12px Verdana";
         //context.fillText("Fps: " + fps, 13, 50);
+    }
+
+    // Get version number from text file
+    function getVersion() {
+        var reader = new FileReader();
+        //reader.onload("/changelog.txt");
+        // reader.readAsText(version);
+        var XHR = new XMLHttpRequest();
+        XHR.open("GET", "changelog.txt", true);
+        XHR.send();
+        XHR.onload = function (){
+            console.log( "text: " + XHR.responseText.slice(0, XHR.responseText.indexOf("\n")) );
+            workingVersion = XHR.responseText.slice(0, XHR.responseText.indexOf("\n"));
+        };
     }
     
     // Draw buttons
