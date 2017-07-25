@@ -93,6 +93,9 @@ window.onload = function() {
                     { x: 30, y: 360, width: 150, height: 50, text: "Enable AI Bot"}];
 
     var initialized = false;
+
+    // Sin iterator for glow
+    var sinIterator = 0;
     
     // Initialize the game
     function init() {
@@ -142,24 +145,10 @@ window.onload = function() {
             // Draw the frame
             drawFrame();
 
-            // Draw a progress bar
-            var loadpercentage = loadcount/loadtotal;
-            context.strokeStyle = "#ff8080";
-            context.lineWidth=3;
-            context.strokeRect(18.5, 0.5 + canvas.height - 51, canvas.width-37, 32);
-            context.fillStyle = "#ff8080";
-            context.fillRect(18.5, 0.5 + canvas.height - 51, loadpercentage*(canvas.width-37), 32);
+            updateResponsive();
 
-            // Draw the progress text
-            var loadtext = "Loaded " + loadcount + "/" + loadtotal + " images";
-            context.fillStyle = "#000000";
-            context.font = "16px Verdana";
-            context.fillText(loadtext, 18, 0.5 + canvas.height - 63);
+            loadingWindow();
 
-            if (preloaded) {
-                // Add a delay for demonstration purposes
-                setTimeout(function(){initialized = true;}, 1000);
-            }
         } else {
             // Update and render the game
             update(tframe);
@@ -167,6 +156,27 @@ window.onload = function() {
                 render();
                 drawready = false;
             }
+        }
+    }
+
+    function loadingWindow() {
+        // Draw a progress bar
+        var loadpercentage = loadcount/loadtotal;
+        context.strokeStyle = "#ff8080";
+        context.lineWidth=3;
+        context.strokeRect(canvas.width/2 - (canvas.width/4), canvas.height/2, canvas.width/2, 32);
+        context.fillStyle = "#ff8080";
+        context.fillRect(canvas.width/2 - (canvas.width/4), canvas.height/2, loadpercentage*(canvas.width/2), 32);
+
+        // Draw the progress text
+        var loadtext = "Loaded " + loadcount + "/" + loadtotal + " images";
+        context.fillStyle = "#000000";
+        context.font = "16px Verdana";
+        context.fillText(loadtext, canvas.width/2, canvas.height/2 + 22);
+
+        if (preloaded) {
+            // Add a delay for demonstration purposes
+            setTimeout(function(){initialized = true;}, 500);
         }
     }
     
@@ -414,8 +424,8 @@ window.onload = function() {
         context.fillStyle = "#ffffff";
         context.font = "24px Verdana";
         context.textAlign = "center";
-        context.fillText("faceMatch by pfefferi v" + releaseVersion + ".0" + workingVersion, canvas.width / 2, 40);
-        
+        context.fillText("faceMatch v" + releaseVersion + ".0" + workingVersion, canvas.width / 2, 40);
+
         // Display fps
         context.fillStyle = "#ffffff";
         context.font = "12px Verdana";
@@ -424,14 +434,10 @@ window.onload = function() {
 
     // Get version number from text file
     function getVersion() {
-        var reader = new FileReader();
-        //reader.onload("/changelog.txt");
-        // reader.readAsText(version);
         var XHR = new XMLHttpRequest();
         XHR.open("GET", "changelog.txt", true);
         XHR.send();
         XHR.onload = function (){
-            console.log( "text: " + XHR.responseText.slice(0, XHR.responseText.indexOf("\n")) );
             workingVersion = XHR.responseText.slice(0, XHR.responseText.indexOf("\n"));
         };
     }
@@ -450,8 +456,6 @@ window.onload = function() {
             context.fillText(buttons[i].text, buttons[i].x + (buttons[i].width-textdim.width)/2, buttons[i].y+30);
         }
     }
-
-    var sinIterator = 0;
     
     // Render tiles
     function renderTiles() {
