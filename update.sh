@@ -5,7 +5,7 @@ if [[ $1 == "-p" ]]; then
     file="changelog.txt"
     version=$(cat "$file")
     new_version=`expr $version + 1`
-    echo -e $new_version'\n' > $file
+    echo -e $new_version > $file
 
     # Doing all the Git stuff
     git add .
