@@ -414,7 +414,7 @@ window.onload = function() {
         context.fillStyle = "#ffffff";
         context.font = "24px Verdana";
         context.textAlign = "center";
-        context.fillText("faceMatch by pfefferi v" + releaseVersion + "." + workingVersion, canvas.width / 2, 40);
+        context.fillText("faceMatch by pfefferi v" + releaseVersion + ".0" + workingVersion, canvas.width / 2, 40);
         
         // Display fps
         context.fillStyle = "#ffffff";
