@@ -1,4 +1,4 @@
-# pfefMatch  --  CYOC (Crush Your Own Candy)
+# KYOC: Krush Your Own Candy (project pfefMatch) 
 Match 3 provides a very simple testing platform for automated personalisation due to its simplistic and somewhat axiomatic gameplay mechanics. Experimen- tally this allows me to look at the effect of ’familiarity’ in isolation from the rhetoric of placing the familiar in a meaningful context (in terms of game me- chanics or narrative implications). In each example, the items being matched can be personalised as well as the background and the music playing during gameplay.
 
 In order to save time, I decided to not build my own Match3 style game from scratch and have instead borrowed one from here: [How To Make A Match-3 Game With HTML5 Canvas](http://rembound.com/articles/how-to-make-a-match3-game-with-html5-canvas) 
