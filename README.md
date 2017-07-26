@@ -12,7 +12,7 @@ For more information about my PhD research as part of the IGGI (Intelligent Game
 [![How To Make A Match-3 Game With HTML5 Canvas](screenshot.png?raw=true)](http://rembound.com/articles/how-to-make-a-match3-game-with-html5-canvas)
 
 # License
-Copyright (c) 2015 Robert J Homewood
+Copyright (c) 2017 Robert J Homewood
 
 This program is free software: you can redistribute it and/or modify  
 it under the terms of the GNU General Public License as published by  
