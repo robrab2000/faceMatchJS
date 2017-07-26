@@ -1,7 +1,9 @@
-# Match-3 Game HTML5
-A Match-3 game like Bejeweled and Candy Crush Saga with HTML5 Canvas and JavaScript.
+# pfefMatch
+Match 3 provides a very simple testing platform for automated personalisation due to its simplistic and somewhat axiomatic gameplay mechanics. Experimen- tally this allows me to look at the effect of ’familiarity’ in isolation from the rhetoric of placing the familiar in a meaningful context (in terms of game me- chanics or narrative implications). In each example, the items being matched can be personalised as well as the background and the music playing during gameplay.
 
-This is a code example that belongs to the article: [How To Make A Match-3 Game With HTML5 Canvas](http://rembound.com/articles/how-to-make-a-match3-game-with-html5-canvas)
+In order to save time, I decided to not build my own Match3 style game from scratch and have instead borrowed one from here: [How To Make A Match-3 Game With HTML5 Canvas](http://rembound.com/articles/how-to-make-a-match3-game-with-html5-canvas) 
+
+I have modified and extended this project in line with the terms of the GNU licence and am extremely grateful to the author for making this available to me!
 
 [![How To Make A Match-3 Game With HTML5 Canvas](screenshot.png?raw=true)](http://rembound.com/articles/how-to-make-a-match3-game-with-html5-canvas)
 
