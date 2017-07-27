@@ -430,7 +430,7 @@ window.onload = function() {
         context.fillStyle = "#ffffff";
         context.font = "24px Verdana";
         context.textAlign = "center";
-        context.fillText("KYOK: v" + releaseVersion + "." + workingVersion, canvas.width / 2, 40);
+        context.fillText("Krush Yer Own Kandy v" + releaseVersion + "." + workingVersion, canvas.width / 2, 40);
 
         // Display fps
         context.fillStyle = "#ffffff";
