@@ -428,7 +428,7 @@ window.onload = function() {
         
         // Draw title
         context.fillStyle = "#ffffff";
-        context.font = "24px Verdana";
+        context.font = "22px Verdana";
         context.textAlign = "center";
         context.fillText("Krush Yer Own Kandy v" + releaseVersion + "." + workingVersion, canvas.width / 2, 40);
 
