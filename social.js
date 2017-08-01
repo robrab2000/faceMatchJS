@@ -72,6 +72,7 @@ window.connectFacebook = function() {
                 'Thanks for logging in, ' + response.name + '!';
         });
         console.log("Gonna get a selfie..");
+        /*
         FB.api(
             '/me/picture',
             'GET',
@@ -83,10 +84,23 @@ window.connectFacebook = function() {
                 images = loadImages(["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]);
             }
         );
-        console.log("test:");
-        FB.api('/me', function(response) {
-            console.log(response);
-        });
+        */
+
+        FB.api(
+            '/me/taggable_friends',
+            'GET',
+            {"fields":"name,picture.type(normal)","limit":"7"},
+            function(response) {
+                var fbImages;
+                fbImages = response.data;
+                var imageURL = [];
+                for (var i = 0; i < fbImages.length; i++) {
+                    imageURL[i] = fbImages[i].picture.data.url;
+                }
+                images = loadImages(imageURL);//[imageURL[0], imageURL[1], imageURL[2], imageURL[3], imageURL[4], imageURL[5], imageURL[6]]);
+                console.log("poop");
+            }
+        );
 
     }
 }

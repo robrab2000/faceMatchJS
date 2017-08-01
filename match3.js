@@ -1023,14 +1023,14 @@ function loadImages(imagefiles) {
     var loadedimages = [];
         var daImg = new Image();
         //console.log(imgURL);
-        daImg.src = imgURL;
-        loadedimages[0] = daImg;
+        //daImg.src = imgURL;
+        //loadedimages[0] = daImg;
         //loadedimages[0].src = imgURL;
-        loadcount++;
+        //loadcount++;
 
 
 
-    for (var i=1; i<imagefiles.length; i++) {
+    for (var i=0; i<imagefiles.length; i++) {
         // Create the image object
         var image = new Image();
 
@@ -1044,7 +1044,8 @@ function loadImages(imagefiles) {
         };
 
         // Set the source url of the image
-        image.src = "assets/" + imagefiles[i];
+        //image.src = "assets/" + imagefiles[i];
+        image.src = imagefiles[i];
 
         // Save to the image array
         loadedimages[i] = image;
