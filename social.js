@@ -89,13 +89,13 @@ window.connectFacebook = function() {
         FB.api(
             '/me/taggable_friends',
             'GET',
-            {"fields":"name,picture.type(normal)","limit":"7"},
+            {"fields":"name,picture.type(normal)","limit":"10000"},
             function(response) {
                 var fbImages;
                 fbImages = response.data;
                 var imageURL = [];
-                for (var i = 0; i < fbImages.length; i++) {
-                    imageURL[i] = fbImages[i].picture.data.url;
+                for (var i = 0; i < 7; i++) {
+                    imageURL[i] = fbImages[fbImages.length - 1 - i].picture.data.url;
                 }
                 images = loadImages(imageURL);//[imageURL[0], imageURL[1], imageURL[2], imageURL[3], imageURL[4], imageURL[5], imageURL[6]]);
                 console.log("poop");
