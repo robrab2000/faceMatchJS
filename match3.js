@@ -18,6 +18,13 @@
 // http://rembound.com/articles/how-to-make-a-match3-game-with-html5-canvas
 // ------------------------------------------------------------------------
 
+
+var images;
+// Image loading global variables
+var loadcount = 0;
+var loadtotal = 0;
+var preloaded = false;
+
 // The function gets called when the window is fully loaded
 window.onload = function() {
     // Release version
@@ -97,15 +104,15 @@ window.onload = function() {
     // Sin iterator for glow
     var sinIterator = 0;
 
-    // Image loading global variables
-    var loadcount = 0;
-    var loadtotal = 0;
-    var preloaded = false;
+
     
     // Initialize the game
     function init() {
+
+        // Connect the social accounts
+        connectSocial();
         // Preload image files
-        images = loadImages(["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]);
+        //images = loadImages(["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]);
 
         // Add mouse events
         canvas.addEventListener("mousemove", onMouseMove);
@@ -113,9 +120,6 @@ window.onload = function() {
         canvas.addEventListener("mouseup", onMouseUp);
 
         canvas.addEventListener("mouseout", onMouseOut);
-
-        // Connect the social accounts
-        connectSocial();
 
         // Initialize the two-dimensional tile array
         for (var i=0; i<level.columns; i++) {
@@ -998,43 +1002,54 @@ window.onload = function() {
         };
     }
 
-    // Load images
-    function loadImages(imagefiles) {
-        // Initialize variables
-        loadcount = 0;
-        loadtotal = imagefiles.length;
-        preloaded = false;
 
-        // Load the images
-        var loadedimages = [];
-        for (var i=0; i<imagefiles.length; i++) {
-            // Create the image object
-            var image = new Image();
-
-            // Add onload event handler
-            image.onload = function () {
-                loadcount++;
-                if (loadcount == loadtotal) {
-                    // Done loading
-                    preloaded = true;
-                }
-            };
-
-            // Set the source url of the image
-            image.src = "assets/" + imagefiles[i];
-
-            // Save to the image array
-            loadedimages[i] = image;
-        }
-
-        // Return an array of images
-        return loadedimages;
-    }
 
     function connectSocial() {
-        connectFacebook();
+        window.connectFacebook();
     }
     
     // Call init to start the game
     init();
 };
+
+// Load images
+function loadImages(imagefiles) {
+    // Initialize variables
+    loadcount = 0;
+    loadtotal = imagefiles.length;
+    preloaded = false;
+
+    // Load the images
+    var loadedimages = [];
+        var daImg = new Image();
+        //console.log(imgURL);
+        daImg.src = imgURL;
+        loadedimages[0] = daImg;
+        //loadedimages[0].src = imgURL;
+        loadcount++;
+
+
+
+    for (var i=1; i<imagefiles.length; i++) {
+        // Create the image object
+        var image = new Image();
+
+        // Add onload event handler
+        image.onload = function () {
+            loadcount++;
+            if (loadcount == loadtotal) {
+                // Done loading
+                preloaded = true;
+            }
+        };
+
+        // Set the source url of the image
+        image.src = "assets/" + imagefiles[i];
+
+        // Save to the image array
+        loadedimages[i] = image;
+    }
+
+    // Return an array of images
+    return loadedimages;
+}
