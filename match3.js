@@ -109,8 +109,6 @@ window.onload = function() {
     // Initialize the game
     function init() {
 
-        // Connect the social accounts
-        connectSocial();
         // Preload image files
         //images = loadImages(["pic0.jpg", "pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]);
 
@@ -132,14 +130,16 @@ window.onload = function() {
 
         // Get the version of the game
         getVersion();
-        
+
         // New game
         newGame();
-        
+
+        // Connect the social accounts
+        connectSocial();
         // Enter main loop
         main(0);
     }
-    
+
     // Main loop
     function main(tframe) {
         // Request animation frames
