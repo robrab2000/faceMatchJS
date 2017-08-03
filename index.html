@@ -9,6 +9,8 @@
 </head>
 
 <body style="margin: 0px;">
+<fb:login-button scope="public_profile,email,taggable_friends" onlogin="checkLoginState();">
+</fb:login-button>
 <canvas id="viewport"></canvas></div>
 <!--
   Below we include the Login Button social plugin. This button uses
@@ -16,8 +18,6 @@
   the FB.login() function when clicked.
 -->
 
-<fb:login-button scope="public_profile,email,taggable_friends" onlogin="checkLoginState();">
-</fb:login-button>
 
 <div id="status">
 </div>
