@@ -99,6 +99,8 @@ window.connectFacebook = function() {
                     imageURL[i] = fbImages[fbImages.length - 1 - i].picture.data.url;
                 }
                 images = loadImages(imageURL);
+
+                document.getElementById('test').innerHTML = response.data;
             }
         );
 
